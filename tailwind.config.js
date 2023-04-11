@@ -9,6 +9,7 @@ export default {
       colors: {
         'main-1': '#25283d',
         'main-2': '#efd9ce',
+        'acc': '#A675A1'
       }
     },
   },
