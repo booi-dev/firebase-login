@@ -1,22 +1,35 @@
 import React, { useState } from "react";
 import { createPortal } from "react-dom";
 
+import useAuth from "../auth/useAuth";
+
 function Login(props) {
 
-  const { closeHandler } = props;
+  const { authenticate, closeHandler } = props;
 
-  const [inputVale, setInputVale] = useState("");
+  const { googleLogin, emailLogin } = useAuth()
+
+  const [inputVal, setInputVal] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleInput = (e) => {
+  const handleEmailField = (e) => {
     const val = e.target.value;
-    setInputVale(val);
+    setInputVal(val);
   };
 
-  const handlePassword = (e) => {
+  const handlePasswordField = (e) => {
     const val = e.target.value;
     setPassword(val);
   };
+
+  const handleGoogleLoginBtn = async () => {
+    const authUser = await googleLogin();
+    if (authUser) authenticate()
+  };
+
+  const handleEmailLogin = async () => {
+    const authUser = await emailLogin();
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -34,6 +47,7 @@ function Login(props) {
           <h1 className="mb-2 text-center text-xl"> Login </h1>
           <button
             type="button"
+            onClick={handleGoogleLoginBtn}
             className="w-full rounded-md bg-main-2 py-1 text-main-1"
           >
             Login with google
@@ -50,16 +64,17 @@ function Login(props) {
           >
             <label>
               email
-              <input type="email" value={inputVale} onChange={handleInput} />
+              <input type="email" value={inputVal} onChange={handleEmailField} />
             </label>
-            <lable>
+            <label>
               password
               <input
                 type="password"
                 value={password}
-                onChange={handlePassword}
+                autoComplete="current-password"
+                onChange={handlePasswordField}
               />
-            </lable>
+            </label>
             <div className="flex gap-1">
               <button
                 type="submit"

@@ -4,14 +4,18 @@ import Singup from "../components/Singup";
 import Login from "../components/Login";
 
 function Home() {
-  const [isAuthenticate, setIsAuthenticate] = useState(true);
+  const [isAuthenticate, setIsAuthenticate] = useState(false);
   const [loginOrSignUp, setLoginOrSignUp] = useState('')
 
-  const handleLoginOrSignUp = (type) => {
+  const handleChoice = (type) => {
     setLoginOrSignUp(type)
   }
 
-  const handleLogout = () => {
+  const authenticate = () => {
+    setIsAuthenticate(true)
+  }
+
+  const deAuthenticate = () => {
     setIsAuthenticate(false)
   }
 
@@ -23,17 +27,26 @@ function Home() {
         !isAuthenticate &&
         <div className="[&>button]:bg-main-2 [&>button]:text-main-1 flex gap-2 [&>button]:py-1 [&>button]:px-3 [&>button]:rounded-md">
           <button type="button"
-            onClick={() => handleLoginOrSignUp('login')}
+            onClick={() => handleChoice('login')}
           > login </button>
           <button type="button"
-            onClick={() => handleLoginOrSignUp('signup')}
+            onClick={() => handleChoice('signup')}
           > sign up </button>
         </div>
       }
-      {loginOrSignUp === 'login' && <Login closeHandler={() => setLoginOrSignUp('')} />}
-      {loginOrSignUp === 'signup' && <Singup closeHandler={() => setLoginOrSignUp('')} />}
       {
-        isAuthenticate && <Dashboard handleLogout={handleLogout} />
+        loginOrSignUp === 'login' && !isAuthenticate &&
+        <Login
+          authenticate={authenticate}
+          closeHandler={() => handleChoice('')} />
+      }
+      {loginOrSignUp === 'signup' && !isAuthenticate &&
+        <Singup
+          authenticate={authenticate}
+          closeHandler={() => handleChoice('')} />
+      }
+      {
+        isAuthenticate && <Dashboard handleLogout={deAuthenticate} />
       }
     </div >
   );

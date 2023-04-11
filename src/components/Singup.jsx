@@ -5,15 +5,15 @@ function Singup(props) {
 
     const { closeHandler } = props;
 
-    const [inputVale, setInputVale] = useState("");
+    const [inputVal, setInputVal] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleInput = (e) => {
+    const handleEmailField = (e) => {
         const val = e.target.value;
-        setInputVale(val);
+        setInputVal(val);
     };
 
-    const handlePassword = (e) => {
+    const handlePasswordField = (e) => {
         const val = e.target.value;
         setPassword(val);
     };
@@ -50,15 +50,16 @@ function Singup(props) {
                     >
                         <label>
                             email
-                            <input type="email" value={inputVale} onChange={handleInput} />
+                            <input type="email" value={inputVal} onChange={handleEmailField} />
                         </label>
-                        <lable>
+                        <label>
                             <input
                                 type="password"
                                 value={password}
-                                onChange={handlePassword}
+                                autoComplete="current-password"
+                                onChange={handlePasswordField}
                             />
-                        </lable>
+                        </label>
                         <div className="flex gap-1">
                             <button
                                 type="submit"
