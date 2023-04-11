@@ -4,7 +4,7 @@ function Dashboard(props) {
     const { user, handleLogout } = props
     return (
         <div className='flex justify-center'>
-            <h1 className='relative text-3xl text-acc'>Hello World</h1>
+            <h1 className='relative text-3xl text-acc'>Hello World.</h1>
             <div className='absolute bottom-2 text-center mb-2'>
                 <div>{user?.email}</div>
                 <button type='button'

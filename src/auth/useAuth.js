@@ -5,7 +5,7 @@ import {
     signInWithPopup,
     signOut,
 } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth } from "../config/firebase";
 
 const useAuth = () => {
     const googleProvider = new GoogleAuthProvider();
@@ -15,9 +15,8 @@ const useAuth = () => {
         try {
             const res = await signInWithPopup(auth, googleProvider);
             authUser = res.user;
-            console.log(user);
         } catch (err) {
-            error = "some is wrong try again"
+            error = "Something is wrong. Try again."
         }
         return { authUser, error };
     };
@@ -31,11 +30,10 @@ const useAuth = () => {
                 email,
                 password
             );
-            console.log("logging in with", userCredential);
             authUser = userCredential.user;
         } catch (err) {
             if (err.message === "Firebase: Error (auth/wrong-password).") {
-                error = "wrong password"
+                error = "Wrong password."
             }
         }
         return { authUser, error };
@@ -50,14 +48,11 @@ const useAuth = () => {
                 email,
                 password
             );
-            console.log("logging in with", userCredential);
             authUser = userCredential.user;
-            console.log(user);
         } catch (err) {
             const errorMessage = err.message;
-            console.log(errorMessage);
             if (errorMessage === 'Firebase: Error (auth/email-already-in-use).') {
-                error = "email already in use. try another."
+                error = "Email already in use. Try another."
             }
         }
         return { authUser, error };

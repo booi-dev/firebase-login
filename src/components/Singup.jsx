@@ -7,7 +7,7 @@ import useAuth from "../auth/useAuth";
 
 function Singup(props) {
 
-    const { authenticate, handleChoice, closeHandler } = props;
+    const { handleChoice, closeHandler } = props;
 
     const { googleLogin, emailSignup } = useAuth()
 
