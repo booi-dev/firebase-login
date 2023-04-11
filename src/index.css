@@ -3,8 +3,6 @@
 @tailwind utilities;
 
 html {
-  display: flex;
-  justify-content: center;
   background-color: #25283d;
   color: #efd9ce;
 }
