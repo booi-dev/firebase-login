@@ -30,11 +30,12 @@ function Login(props) {
   const handleEmailLogin = async () => {
     console.log(inputVal, password)
     const authUser = await emailLogin(inputVal, password);
-    if (authUser) console.log(authUser)
+    if (authUser) authenticate(authUser)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    handleEmailLogin()
     console.log(inputVal, password);
   };
 
@@ -66,7 +67,9 @@ function Login(props) {
           >
             <label>
               email
-              <input type="email" value={inputVal}
+              <input type="email"
+                value={inputVal}
+                required
                 autoComplete="username"
                 onChange={handleEmailField} />
             </label>
@@ -75,6 +78,7 @@ function Login(props) {
               <input
                 type="password"
                 value={password}
+                required
                 autoComplete="current-password"
                 onChange={handlePasswordField}
               />
@@ -90,7 +94,6 @@ function Login(props) {
               <button
                 type="submit"
                 className="mt-4 w-full rounded-md bg-acc py-1 font-bold text-main-1"
-                onClick={handleEmailLogin}
               >
                 Login
               </button>

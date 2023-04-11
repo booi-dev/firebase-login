@@ -7,7 +7,7 @@ function Singup(props) {
 
     const { authenticate, closeHandler } = props;
 
-    const { googleLogin, emailLogin } = useAuth()
+    const { googleLogin, emailSignup } = useAuth()
 
     const [inputVal, setInputVal] = useState("");
     const [password, setPassword] = useState("");
@@ -24,17 +24,18 @@ function Singup(props) {
 
     const handleGoogleSignupBtn = async () => {
         const authUser = await googleLogin();
-        if (authUser) authenticate()
+        if (authUser) authenticate(authUser)
     };
 
     const handleEmailSignup = async () => {
         console.log(inputVal, password)
-        const authUser = await emailLogin(inputVal, password);
-        if (authUser) console.log(authUser)
+        const authUser = await emailSignup(inputVal, password);
+        if (authUser) authenticate(authUser)
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        handleEmailSignup()
         console.log(inputVal, password);
     };
 
@@ -68,12 +69,15 @@ function Singup(props) {
                             email
                             <input type="email" value={inputVal}
                                 autoComplete="username"
+                                required
                                 onChange={handleEmailField} />
                         </label>
                         <label>
+                            password
                             <input
                                 type="password"
                                 value={password}
+                                required
                                 autoComplete="current-password"
                                 onChange={handlePasswordField}
                             />
