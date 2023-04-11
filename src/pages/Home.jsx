@@ -1,22 +1,29 @@
 import React, { useState } from "react";
+import useAuth from "../auth/useAuth";
 import Dashboard from "./Dashboard";
 import Singup from "../components/Singup";
 import Login from "../components/Login";
 
 function Home() {
+
+  const { signAuthOut } = useAuth()
+
   const [isAuthenticate, setIsAuthenticate] = useState(false);
   const [loginOrSignUp, setLoginOrSignUp] = useState('')
+  const [user, setUser] = useState('')
 
   const handleChoice = (type) => {
     setLoginOrSignUp(type)
   }
 
-  const authenticate = () => {
+  const authenticate = (user) => {
     setIsAuthenticate(true)
+    setUser(user)
   }
 
   const deAuthenticate = () => {
     setIsAuthenticate(false)
+    signAuthOut()
   }
 
   return (
@@ -46,7 +53,8 @@ function Home() {
           closeHandler={() => handleChoice('')} />
       }
       {
-        isAuthenticate && <Dashboard handleLogout={deAuthenticate} />
+        isAuthenticate && <Dashboard user={user}
+          handleLogout={deAuthenticate} />
       }
     </div >
   );

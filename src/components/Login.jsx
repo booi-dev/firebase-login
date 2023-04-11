@@ -24,16 +24,18 @@ function Login(props) {
 
   const handleGoogleLoginBtn = async () => {
     const authUser = await googleLogin();
-    if (authUser) authenticate()
+    if (authUser) authenticate(authUser)
   };
 
   const handleEmailLogin = async () => {
-    const authUser = await emailLogin();
+    console.log(inputVal, password)
+    const authUser = await emailLogin(inputVal, password);
+    if (authUser) console.log(authUser)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(inputVale, password);
+    console.log(inputVal, password);
   };
 
   let LoginPortal;
@@ -64,7 +66,9 @@ function Login(props) {
           >
             <label>
               email
-              <input type="email" value={inputVal} onChange={handleEmailField} />
+              <input type="email" value={inputVal}
+                autoComplete="username"
+                onChange={handleEmailField} />
             </label>
             <label>
               password
@@ -86,8 +90,9 @@ function Login(props) {
               <button
                 type="submit"
                 className="mt-4 w-full rounded-md bg-acc py-1 font-bold text-main-1"
+                onClick={handleEmailLogin}
               >
-                submit
+                Login
               </button>
             </div>
           </form>

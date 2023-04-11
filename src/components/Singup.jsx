@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { createPortal } from "react-dom";
 
+import useAuth from "../auth/useAuth";
+
 function Singup(props) {
 
-    const { closeHandler } = props;
+    const { authenticate, closeHandler } = props;
+
+    const { googleLogin, emailLogin } = useAuth()
 
     const [inputVal, setInputVal] = useState("");
     const [password, setPassword] = useState("");
@@ -18,9 +22,20 @@ function Singup(props) {
         setPassword(val);
     };
 
+    const handleGoogleSignupBtn = async () => {
+        const authUser = await googleLogin();
+        if (authUser) authenticate()
+    };
+
+    const handleEmailSignup = async () => {
+        console.log(inputVal, password)
+        const authUser = await emailLogin(inputVal, password);
+        if (authUser) console.log(authUser)
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(inputVale, password);
+        console.log(inputVal, password);
     };
 
     let SignupPortal;
@@ -34,6 +49,7 @@ function Singup(props) {
                     <h1 className="mb-2 text-center text-xl"> Sign up </h1>
                     <button
                         type="button"
+                        onClick={handleGoogleSignupBtn}
                         className="w-full rounded-md bg-main-2 py-1 text-main-1"
                     >
                         Singup with google
@@ -50,7 +66,9 @@ function Singup(props) {
                     >
                         <label>
                             email
-                            <input type="email" value={inputVal} onChange={handleEmailField} />
+                            <input type="email" value={inputVal}
+                                autoComplete="username"
+                                onChange={handleEmailField} />
                         </label>
                         <label>
                             <input
@@ -72,7 +90,7 @@ function Singup(props) {
                                 type="submit"
                                 className="mt-4 w-full rounded-md bg-acc py-1 font-bold text-main-1"
                             >
-                                submit
+                                Sign up
                             </button>
                         </div>
                     </form>

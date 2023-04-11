@@ -13,6 +13,7 @@ const useAuth = () => {
         try {
             const res = await signInWithPopup(auth, googleProvider);
             user = res.user;
+            console.log(user);
         } catch (err) {
             console.log(err);
         }
