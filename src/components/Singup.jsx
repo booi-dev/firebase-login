@@ -29,7 +29,6 @@ function Singup(props) {
     };
 
     const handleEmailSignup = async () => {
-        console.log(inputVal, password)
         const authUser = await emailSignup(inputVal, password);
         if (authUser) authenticate(authUser)
     }
@@ -37,7 +36,6 @@ function Singup(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
         handleEmailSignup()
-        console.log(inputVal, password);
     };
 
     let SignupPortal;

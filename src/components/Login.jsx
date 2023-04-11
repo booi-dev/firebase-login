@@ -27,20 +27,23 @@ function Login(props) {
   };
 
   const handleGoogleLoginBtn = async () => {
-    const authUser = await googleLogin();
+    const { authUser, error } = await googleLogin();
     if (authUser) authenticate(authUser)
+    if ((error)) console.log(error)
   };
 
   const handleEmailLogin = async () => {
-    console.log(inputVal, password)
-    const authUser = await emailLogin(inputVal, password);
+    const { authUser, error } = await emailLogin(inputVal, password);
     if (authUser) authenticate(authUser)
+    if (error) {
+      setError(true)
+      setAlert(error)
+    }
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     handleEmailLogin()
-    console.log(inputVal, password);
   };
 
   let LoginPortal;

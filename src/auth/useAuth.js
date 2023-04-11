@@ -10,19 +10,21 @@ import { auth } from "../../firebase";
 const useAuth = () => {
     const googleProvider = new GoogleAuthProvider();
     const googleLogin = async () => {
-        let user;
+        let authUser;
+        let error;
         try {
             const res = await signInWithPopup(auth, googleProvider);
-            user = res.user;
+            authUser = res.user;
             console.log(user);
         } catch (err) {
-            console.log(err);
+            error = "some is wrong try again"
         }
-        return user;
+        return { authUser, error };
     };
 
     const emailLogin = async (email, password) => {
-        let user;
+        let authUser;
+        let error;
         try {
             const userCredential = await signInWithEmailAndPassword(
                 auth,
@@ -30,15 +32,11 @@ const useAuth = () => {
                 password
             );
             console.log("logging in with", userCredential);
-            user = userCredential.user;
-            console.log(user);
+            authUser = userCredential.user;
         } catch (err) {
-            if (err instanceof Error) {
-                const errorMessage = err.message;
-                console.log(errorMessage);
-            }
+            if (err.message === "Firebase: Error (auth/wrong-password).") error = "wrong password"
         }
-        return user;
+        return { authUser, error };
     };
 
     const emailSignup = async (email, password) => {
@@ -53,10 +51,8 @@ const useAuth = () => {
             user = userCredential.user;
             console.log(user);
         } catch (err) {
-            if (err instanceof Error) {
-                const errorMessage = err.message;
-                console.log(errorMessage);
-            }
+            const errorMessage = err.message;
+            console.log(errorMessage);
         }
         return user;
     };
