@@ -51,7 +51,7 @@ const useAuth = () => {
                 password
             );
             console.log("logging in with", userCredential);
-            user = userCredential.user;
+            authUser = userCredential.user;
             console.log(user);
         } catch (err) {
             const errorMessage = err.message;

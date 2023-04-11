@@ -14,7 +14,6 @@ function Singup(props) {
     const [inputVal, setInputVal] = useState("");
     const [password, setPassword] = useState("");
     const [alert, setAlert] = useState('')
-    const [error, setError] = useState(false)
 
     const handleEmailField = (e) => {
         const val = e.target.value;
@@ -28,19 +27,27 @@ function Singup(props) {
 
     const handleGoogleSignupBtn = async () => {
         const { authUser, error } = await googleLogin();
-        if (authUser) setAlert('sign up successfully. you can login now')
+        if (authUser) {
+            setAlert('Sign up successful. You can login now')
+            setInputVal('')
+            setPassword('')
+        }
         if (error) setAlert(error)
     };
 
     const handleEmailSignup = async () => {
         const { authUser, error } = await emailSignup(inputVal, password);
-        if (authUser) setAlert('sign up successfully. you can login now')
+        if (authUser) {
+            setAlert('Sign up successful. You can login now')
+            setInputVal('')
+            setPassword('')
+        }
         if (error) setAlert(error)
     }
 
     const handleSubmit = (e) => {
+        e.preventDefault()
         setAlert('')
-        e.preventDefault();
         handleEmailSignup()
     };
 

@@ -24,6 +24,7 @@ function Home() {
   const deAuthenticate = () => {
     setIsAuthenticate(false)
     signAuthOut()
+    setLoginOrSignUp('')
   }
 
   return (
