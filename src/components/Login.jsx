@@ -7,7 +7,7 @@ import Alert from "./Alert";
 
 function Login(props) {
 
-  const { authenticate, closeHandler } = props;
+  const { authenticate, handleChoice, closeHandler } = props;
 
   const { googleLogin, emailLogin } = useAuth()
 
@@ -108,6 +108,9 @@ function Login(props) {
               </button>
             </div>
           </form>
+          <div className="mt-4">
+            <p> Already have account? <button type="button" onClick={() => handleChoice('signup')} className="text-acc">signup</button> instead. </p>
+          </div>
         </div>
       </div>,
       portal

@@ -46,7 +46,9 @@ function Home() {
         loginOrSignUp === 'login' && !isAuthenticate &&
         <Login
           authenticate={authenticate}
-          closeHandler={() => handleChoice('')} />
+          closeHandler={() => handleChoice('')}
+          handleChoice={handleChoice}
+        />
       }
       {loginOrSignUp === 'signup' && !isAuthenticate &&
         <Singup
