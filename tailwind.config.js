@@ -5,7 +5,7 @@ export default {
     extend: {
       colors: {
         "main-1": "#25283d",
-        "main-2": "#efd9ce",
+        "main-2": "#CEA2AC",
         acc: "#A675A1",
       },
       screens: {

@@ -14,7 +14,6 @@ function Login(props) {
   const [inputVal, setInputVal] = useState("");
   const [password, setPassword] = useState("");
   const [alert, setAlert] = useState('')
-  const [error, setError] = useState(false)
 
   const handleEmailField = (e) => {
     const val = e.target.value;
@@ -36,13 +35,13 @@ function Login(props) {
     const { authUser, error } = await emailLogin(inputVal, password);
     if (authUser) authenticate(authUser)
     if (error) {
-      setError(true)
       setAlert(error)
     }
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setAlert('')
     handleEmailLogin()
   };
 
@@ -56,7 +55,7 @@ function Login(props) {
         <div className="grow">
           <h1 className="mb-2 text-center text-xl"> Login </h1>
           {
-            error && <Alert text={alert} />
+            alert && <Alert text={alert} />
           }
           <button
             type="button"

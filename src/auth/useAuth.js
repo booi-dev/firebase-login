@@ -34,13 +34,16 @@ const useAuth = () => {
             console.log("logging in with", userCredential);
             authUser = userCredential.user;
         } catch (err) {
-            if (err.message === "Firebase: Error (auth/wrong-password).") error = "wrong password"
+            if (err.message === "Firebase: Error (auth/wrong-password).") {
+                error = "wrong password"
+            }
         }
         return { authUser, error };
     };
 
     const emailSignup = async (email, password) => {
-        let user;
+        let authUser;
+        let error;
         try {
             const userCredential = await createUserWithEmailAndPassword(
                 auth,
@@ -53,8 +56,11 @@ const useAuth = () => {
         } catch (err) {
             const errorMessage = err.message;
             console.log(errorMessage);
+            if (errorMessage === 'Firebase: Error (auth/email-already-in-use).') {
+                error = "email already in use. try another."
+            }
         }
-        return user;
+        return { authUser, error };
     };
 
     const signAuthOut = async () => {

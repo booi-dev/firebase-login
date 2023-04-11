@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { createPortal } from "react-dom";
 
+import Alert from "./Alert";
+
 import useAuth from "../auth/useAuth";
 
 function Singup(props) {
@@ -12,6 +14,7 @@ function Singup(props) {
     const [inputVal, setInputVal] = useState("");
     const [password, setPassword] = useState("");
     const [alert, setAlert] = useState('')
+    const [error, setError] = useState(false)
 
     const handleEmailField = (e) => {
         const val = e.target.value;
@@ -24,16 +27,19 @@ function Singup(props) {
     };
 
     const handleGoogleSignupBtn = async () => {
-        const authUser = await googleLogin();
-        if (authUser) authenticate(authUser)
+        const { authUser, error } = await googleLogin();
+        if (authUser) setAlert('sign up successfully. you can login now')
+        if (error) setAlert(error)
     };
 
     const handleEmailSignup = async () => {
-        const authUser = await emailSignup(inputVal, password);
-        if (authUser) authenticate(authUser)
+        const { authUser, error } = await emailSignup(inputVal, password);
+        if (authUser) setAlert('sign up successfully. you can login now')
+        if (error) setAlert(error)
     }
 
     const handleSubmit = (e) => {
+        setAlert('')
         e.preventDefault();
         handleEmailSignup()
     };
@@ -47,6 +53,9 @@ function Singup(props) {
             <div className="absolute inset-0 flex items-center rounded-md border bg-main-1 p-8 sm:left-1/2 sm:top-1/2 sm:min-w-[400px] sm:max-w-[400px] sm:-translate-x-1/2 sm:-translate-y-1/2">
                 <div className="grow">
                     <h1 className="mb-2 text-center text-xl"> Sign up </h1>
+                    {
+                        alert && <Alert text={alert} />
+                    }
                     <button
                         type="button"
                         onClick={handleGoogleSignupBtn}
