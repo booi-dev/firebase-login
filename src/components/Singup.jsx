@@ -7,7 +7,7 @@ import useAuth from "../auth/useAuth";
 
 function Singup(props) {
 
-    const { authenticate, closeHandler } = props;
+    const { authenticate, handleChoice, closeHandler } = props;
 
     const { googleLogin, emailSignup } = useAuth()
 
@@ -113,6 +113,9 @@ function Singup(props) {
                             </button>
                         </div>
                     </form>
+                    <div className="mt-4">
+                        <p> Already have account? <button type="button" onClick={() => handleChoice('login')} className="text-acc">login</button> instead. </p>
+                    </div>
                 </div>
             </div>,
             portal

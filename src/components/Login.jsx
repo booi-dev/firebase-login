@@ -109,7 +109,7 @@ function Login(props) {
             </div>
           </form>
           <div className="mt-4">
-            <p> Already have account? <button type="button" onClick={() => handleChoice('signup')} className="text-acc">signup</button> instead. </p>
+            <p> Don't have account? <button type="button" onClick={() => handleChoice('signup')} className="text-acc">signup</button> instead. </p>
           </div>
         </div>
       </div>,

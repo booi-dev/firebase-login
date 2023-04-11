@@ -46,14 +46,17 @@ function Home() {
         loginOrSignUp === 'login' && !isAuthenticate &&
         <Login
           authenticate={authenticate}
-          closeHandler={() => handleChoice('')}
           handleChoice={handleChoice}
+          closeHandler={() => handleChoice('')}
         />
       }
       {loginOrSignUp === 'signup' && !isAuthenticate &&
         <Singup
           authenticate={authenticate}
-          closeHandler={() => handleChoice('')} />
+          handleChoice={handleChoice}
+          closeHandler={() => handleChoice('')}
+        />
+
       }
       {
         isAuthenticate && <Dashboard user={user}
