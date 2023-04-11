@@ -11,6 +11,7 @@ function Singup(props) {
 
     const [inputVal, setInputVal] = useState("");
     const [password, setPassword] = useState("");
+    const [alert, setAlert] = useState('')
 
     const handleEmailField = (e) => {
         const val = e.target.value;

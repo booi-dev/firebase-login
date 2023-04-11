@@ -3,6 +3,8 @@ import { createPortal } from "react-dom";
 
 import useAuth from "../auth/useAuth";
 
+import Alert from "./Alert";
+
 function Login(props) {
 
   const { authenticate, closeHandler } = props;
@@ -11,6 +13,8 @@ function Login(props) {
 
   const [inputVal, setInputVal] = useState("");
   const [password, setPassword] = useState("");
+  const [alert, setAlert] = useState('')
+  const [error, setError] = useState(false)
 
   const handleEmailField = (e) => {
     const val = e.target.value;
@@ -48,6 +52,9 @@ function Login(props) {
       <div className="absolute inset-0 flex items-center rounded-md border bg-main-1 p-8 sm:left-1/2 sm:top-1/2 sm:min-w-[400px] sm:max-w-[400px] sm:-translate-x-1/2 sm:-translate-y-1/2">
         <div className="grow">
           <h1 className="mb-2 text-center text-xl"> Login </h1>
+          {
+            error && <Alert text={alert} />
+          }
           <button
             type="button"
             onClick={handleGoogleLoginBtn}
